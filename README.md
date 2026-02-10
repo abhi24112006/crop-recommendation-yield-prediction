@@ -1,45 +1,27 @@
-# 🌾 Crop Advisory System with Yield Prediction (India)
-## 📌 Project Overview
+🌾 Crop Recommendation & Yield Prediction System (India)
+📌 Overview
 
-Agriculture in India is highly dependent on factors such as rainfall, season, region, and input usage. Choosing the right crop and estimating its expected yield is critical for improving productivity and reducing risk for farmers.
+This project is an end-to-end Machine Learning system that recommends the top 3 suitable crops for cultivation and predicts the expected yield based on agricultural and environmental factors relevant to Indian farming conditions.
 
-This project presents a machine learning–based crop advisory system that:
+The system combines classification and regression models, wrapped inside an interactive Streamlit web application for real-time predictions.
 
-**recommends the top suitable crops for given conditions, and
+🎯 Problem Statement
 
-predicts the expected yield for each recommended crop.**
+Farmers often lack data-driven guidance on:
 
-The system is built using real agricultural data from India and deployed with a Streamlit web interface for interactive use.
+Which crops are best suited for their region and season
 
-## 🎯 Objectives
+What yield they can realistically expect under given conditions
 
-Recommend suitable crops based on regional and environmental conditions
+This project aims to:
 
-Predict expected crop yield for informed decision-making
+Recommend optimal crops based on input conditions
 
-Build an end-to-end ML pipeline (EDA → modeling → deployment)
+Predict expected yield to support better planning and decision-making
 
-Provide an easy-to-use frontend for non-technical users
+🧠 System Architecture
 
-## 📊 Dataset Description
-
-The dataset contains agricultural records with the following features:
-
-Column	Description
-Crop	Name of the crop
-Crop_Year	Year of cultivation
-Season	Cropping season (Kharif, Rabi, Whole Year)
-State	Indian state
-Area	Cultivated area (hectares)
-Production	Total production (metric tons)
-Annual_Rainfall	Annual rainfall (mm)
-Fertilizer	Fertilizer used (kg)
-Pesticide	Pesticide used (kg)
-Yield	Crop yield (target for regression)
-
-## 🧠 System Architecture
-
-The system is divided into two machine learning models:
+The system uses two separate ML models:
 
 1️⃣ Crop Recommendation Model
 
@@ -47,7 +29,7 @@ Type: Multiclass Classification
 
 Algorithm: Random Forest Classifier
 
-Output: Top-3 recommended crops
+Output: Top-3 recommended crops (probability-based ranking)
 
 2️⃣ Yield Prediction Model
 
@@ -57,75 +39,139 @@ Algorithm: Random Forest Regressor
 
 Output: Expected yield for each recommended crop
 
-Both models are combined into a single advisory system.
+Both models share a unified preprocessing pipeline.
 
-## ⚙️ Machine Learning Pipeline
+🧩 Input Features
 
-Data Cleaning & Preprocessing
+State
+
+Season
+
+Area (hectares)
+
+Annual Rainfall (mm)
+
+Fertilizer usage
+
+Pesticide usage
+
+⚙️ Machine Learning Pipeline
 
 Exploratory Data Analysis (EDA)
 
-Feature Encoding & Scaling
+Feature engineering
 
-Model Training & Evaluation
+Handling categorical & numerical data
 
-Model Serialization (joblib)
+ColumnTransformer with OneHotEncoder
 
-End-to-End System Integration
+Prevention of data leakage
 
-Frontend Deployment using Streamlit
+Train / Validation / Test split
 
-## 📈 Model Performance
+Model evaluation and interpretation
+
+📊 Model Performance
 Crop Recommendation
 
-Accuracy (Top-1): ~50%
+Evaluated using accuracy and class probabilities
 
-**Top-K recommendation used instead of strict accuracy, as multiple crops can be suitable under the same conditions.**
+Top-K recommendation strategy instead of single-label prediction
 
-Yield Prediction (Random Forest)
+Yield Prediction
 
 R² Score: ~0.98
 
-MAE: ~9
+Mean Absolute Error (MAE): ~9
 
-Strong agreement between actual and predicted values
+These metrics indicate strong predictive performance on unseen data.
 
-## 🖥️ Frontend (Streamlit Web App)
+🖥️ Web Application (Streamlit)
 
-A lightweight web interface was built using Streamlit, allowing users to:
+User-friendly interface
 
-Select State and Season
+Dynamic dropdowns for State and Season
 
-Enter Area, Rainfall, Fertilizer, and Pesticide usage
+Real-time predictions
 
-Get Top-3 crop recommendations
+Integrated ML inference pipeline
 
-View expected yield for each crop
+Handles preprocessing and prediction seamlessly
 
-**How to Run the App**
-python -m streamlit run app.py
-
-## 📂 Project Structure
-crop-advisory-system/
+📁 Project Structure
+crop-recommendation-yield-prediction/
 │
-├── app.py
 ├── data/
-│   ├── raw/
-│   └── processed/
-├── models/
-│   ├── crop_model.pkl
-│   └── yield_model.pkl
+│   └── dataset.csv
+│
 ├── notebooks/
-│   ├── 01_eda.ipynb
-│   ├── 02_preprocessing.ipynb
-│   ├── 03_crop_recommendation.ipynb
-│   ├── 04_yield_prediction.ipynb
-│   └── 05_system_demo.ipynb
-├── README.md
-└── requirements.txt
+│   ├── eda.ipynb
+│   └── model_training.ipynb
+│
+├── app.py                 # Streamlit application
+├── requirements.txt
+├── .gitignore
+└── README.md
 
-**🧪 Example Output**
-Recommended Crop	Expected Yield
-Maize	98.94
-Jowar	1.56
-Rapeseed & Mustard	0.87
+🚫 Model Files
+
+Trained model files (.pkl, .joblib) are not included in this repository due to GitHub file size limits.
+
+Models can be regenerated by running the training notebooks provided.
+
+▶️ How to Run Locally
+1️⃣ Clone the repository
+git clone https://github.com/abhi24112006/crop-recommendation-yield-prediction.git
+cd crop-recommendation-yield-prediction
+
+2️⃣ Create virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+
+3️⃣ Install dependencies
+pip install -r requirements.txt
+
+4️⃣ Run the Streamlit app
+streamlit run app.py
+
+🛠️ Tech Stack
+
+Python
+
+Pandas, NumPy
+
+Scikit-learn
+
+Streamlit
+
+Joblib
+
+🚀 Key Learnings
+
+Designing multi-model ML systems
+
+Feature preprocessing with pipelines
+
+Preventing data leakage
+
+Model comparison and evaluation
+
+Practical ML deployment challenges
+
+Python environment & serialization handling
+
+👤 Author
+
+Abhishek G
+2nd Year AIML Student
+GitHub: https://github.com/abhi24112006
+
+📌 Future Improvements
+
+Hyperparameter tuning
+
+Model comparison & ablation studies
+
+API-based deployment (FastAPI)
+
+Cloud hosting
